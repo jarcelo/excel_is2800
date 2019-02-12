@@ -1,7 +1,7 @@
 import os
 import zipfile
 
-directory = "Path"
+directory = "C:\\Path\\test"
 zipExtension = ".zip"
 xlsxExtension = ".xlsx"
 
@@ -14,8 +14,11 @@ for item in os.listdir(directory):
                 zipRef = zipfile.ZipFile(fileName)
                 zipRef.extractall(directory)
 
+# Delete zipped files after extraction?
 
 # Open the excel files
 for item in os.listdir(directory):
         if item.endswith(xlsxExtension):
                 os.startfile(item)
+
+                

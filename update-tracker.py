@@ -32,8 +32,9 @@ def identifyIncorrectItem(items):
     print("Done.")
 
 
-def calculateScore(colDLength):
+def calculateScore(items):
     print("Calculating submission score ... ")
+    colDLength = len(items)
     percentTotal = '=sum(D2:D' + str(colDLength) + ')'
     scale = '=D' + str(colDLength + 1) + "/100*25"
     percentCell = 'D' + str(colDLength + 1)
@@ -46,31 +47,15 @@ def calculateScore(colDLength):
     print("Done.")
 
 
-# Update grade tracker
-start = -1
+# Update scorecard
+start = 11   # Replace variable with the last index if API call quota is reached before execution is finished
 for index, item in enumerate(sheetCount):
     if index > start:
         print("Working on : "+ str(index) + "  " + str(item))
-        # Get the worksheet
         worksheet = workbook.get_worksheet(index)
-        #worksheet = workbook.get_worksheet(i)
-        # Get the column D values
         items = worksheet.col_values(4)
-        #print("Indentifying incorrect items ... ")
-        #identifyIncorrectItem(items)
-        #for index, item in enumerate(items):
-        #    if item == '0'and index > 1 and index < (colDLength - 1) :
-        #        cellRange = "B" + str(index + 1) + ":" + "D" + str(index + 1)
-        #        format_cell_range(worksheet, cellRange, bgfmt)
-        #        for
-        #        print(index, item)  # Un/comment to print the items with zero score
 
-        #print(worksheet.col_values(4))
-        # Get the column number for last entry in column D
-        colDLength = len(items)
-        calculateScore(colDLength)
-     
-        #print(worksheet.col_values(4))
-        #i+=1
-        #print("Current sheet id: " + str(1))
+        #identifyIncorrectItem(items)
+        calculateScore(items)
+
         print("----------------------------------------------------")
