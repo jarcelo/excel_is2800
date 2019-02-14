@@ -22,6 +22,19 @@ scorefmt = CellFormat(
     textFormat = TextFormat(bold=True)
 )
 
+def removeItemGroupScore(columnAItems, columnDItems):
+    print("Removing group score ... ")
+    colDLength = len(columnAItems)
+    for index, item in enumerate(columnAItems):
+        if index > 1 and index < (colDLength - 1):
+            targetCell = 'D' + str(index + 1)
+            nextEarnedValue = columnDItems[index + 1]
+            if item != "" and nextEarnedValue == '0':
+                print("Removing " + targetCell + " value ...")
+                worksheet.update_acell(targetCell, '')
+    print("Done.")
+
+
 def identifyIncorrectItem(items):
     print("Indentifying incorrect items ... ")
     colDLength = len(items)
@@ -48,14 +61,16 @@ def calculateScore(items):
 
 
 # Update scorecard
-start = 11   # Replace variable with the last index if API call quota is reached before execution is finished
+start = -1   # Replace variable with the last success index if API quota is reached before execution is finished
 for index, item in enumerate(sheetCount):
     if index > start:
         print("Working on : "+ str(index) + "  " + str(item))
         worksheet = workbook.get_worksheet(index)
-        items = worksheet.col_values(4)
+        columnAItems = worksheet.col_values(1)
+        columnDItems = worksheet.col_values(4)
 
-        #identifyIncorrectItem(items)
-        calculateScore(items)
+        #removeItemGroupScore(columnAItems, columnDItems)
+        #identifyIncorrectItem(columnDItems)
+        #calculateScore(columnDItems)
 
         print("----------------------------------------------------")
