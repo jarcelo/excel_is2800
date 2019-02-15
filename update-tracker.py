@@ -22,6 +22,7 @@ scorefmt = CellFormat(
     textFormat = TextFormat(bold=True)
 )
 
+
 def removeItemGroupScore(columnAItems, columnDItems):
     print("Removing group score ... ")
     colDLength = len(columnAItems)
@@ -60,8 +61,9 @@ def calculateScore(items):
     print("Done.")
 
 
-# Update scorecard
-start = -1   # Replace variable with the last success index if API quota is reached before execution is finished
+# Update excel scorecard
+# If execution does not finish, replace 'start' variable with the last success index.
+start = -1   
 for index, item in enumerate(sheetCount):
     if index > start:
         print("Working on : "+ str(index) + "  " + str(item))
