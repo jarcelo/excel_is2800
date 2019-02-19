@@ -1,5 +1,6 @@
 import gspread
 from gspread_formatting import *
+from datetime import date
 from oauth2client.service_account import ServiceAccountCredentials
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
@@ -10,7 +11,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name('is2800-1166f4019
 gsheet = gspread.authorize(credentials)
 # Open workbook
 workbook = gsheet.open('test')
-#workbook = gsheet.open('Excel_Case2_Scorecard_006')
+#workbook = gsheet.open('Excel_Chapter3_Scorecard_007')
 # Get worksheets count
 sheetCount = workbook.worksheets()
 
@@ -63,16 +64,21 @@ def calculateScore(items):
 
 # Update excel scorecard
 # If execution does not finish, replace 'start' variable with the last success index.
-start = -1   
+start = 0  
 for index, item in enumerate(sheetCount):
-    if index > start:
+    if index >= start:
         print("Working on : "+ str(index) + "  " + str(item))
         worksheet = workbook.get_worksheet(index)
-        columnAItems = worksheet.col_values(1)
-        columnDItems = worksheet.col_values(4)
+        if len(worksheet.row_values(1)) == 0:
+            print("Student does not have a submission ...")
+            noSubmissionMsg = "No submission as of " + str(date.today())
+            worksheet.update_acell('B1', noSubmissionMsg)
+        else:
+            columnAItems = worksheet.col_values(1)
+            columnDItems = worksheet.col_values(4)
 
-        #removeItemGroupScore(columnAItems, columnDItems)
-        #identifyIncorrectItem(columnDItems)
-        #calculateScore(columnDItems)
+            #removeItemGroupScore(columnAItems, columnDItems)
+            #identifyIncorrectItem(columnDItems)
+            #calculateScore(columnDItems)
 
         print("----------------------------------------------------")
