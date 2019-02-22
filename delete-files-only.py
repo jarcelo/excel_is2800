@@ -3,7 +3,7 @@
 import os, shutil
 
 
-folder = "C:\\The\\Path\\"
+folder = "C:\\Path"
 
 for the_file in os.listdir(folder):
     file_path = os.path.join(folder, the_file)
