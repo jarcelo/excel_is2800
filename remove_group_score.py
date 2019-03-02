@@ -1,5 +1,4 @@
-
-def addTargetCell(sID, columnAItems, columnDItems):
+def getGroupScoreRequestBody(sID, columnAItems, columnDItems):
     colDLength = len(columnDItems)
     body = {"requests": []}
     for index, item in enumerate(columnAItems):

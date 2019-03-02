@@ -38,7 +38,7 @@ def addTargetCell(sID, target):
                     }
                 }
             },
-            "fields": "userEnteredFormat(textFormat, backgroundColor)"
+            "fields": "userEnteredFormat(textFormat, backgroundColor)"  #remove textFormat?
         }})
 
 #print(sheetIDList)
@@ -47,7 +47,7 @@ def addTargetCell(sID, target):
 
 zeroValues = []
 #Loop through column D values and get the index for zero values
-start = 0  
+start = 11  
 for index, item in enumerate(worksheets):
     source = str(item)
     #print("Source : " + source)
@@ -65,6 +65,6 @@ for index, item in enumerate(worksheets):
                 #print("ID: " + sID + "| Col : " + str(colDTarget))
 
 #print(zeroValues)
-#print(body)
+print(body)
 
-workbook.batch_update(body=body)
+#workbook.batch_update(body=body)

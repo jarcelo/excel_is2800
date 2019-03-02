@@ -12,8 +12,8 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name('is2800-1166f4019
 # Authorize
 gsheet = gspread.authorize(credentials)
 # Open workbook
-#workbook = gsheet.open('test')
-workbook = gsheet.open('Test_Full_Excel_Chapter2_Scorecard_007')
+workbook = gsheet.open('test')
+#workbook = gsheet.open('Test_Full_Excel_Chapter2_Scorecard_007')
 # Get worksheets count
 #sheetCount = workbook.worksheets()   # Can fail starting here!//CHeck for optimization
 def getSheetCount(workbook):
@@ -31,7 +31,7 @@ while sheetCount == 0:
 
 # Format cells with zero grade values; change the background color
 bgfmt = CellFormat(
-    backgroundColor=color(1, 0.9, 0.9)
+    backgroundColor = Color(1, 0.9, 0.9)
 )
 scorefmt = CellFormat(
     textFormat = TextFormat(bold=True)
@@ -42,14 +42,20 @@ def removeItemGroupScore(columnAItems, columnDItems):
     print("Checking group score.")
     try:
         colDLength = len(columnAItems)
+        target_list = []
         for index, item in enumerate(columnAItems):
             if index > 1 and index < (colDLength - 1):
                 targetCell = 'D' + str(index + 1)
                 nextEarnedValue = columnDItems[index + 1]
                 if item != "" and nextEarnedValue == '0':
                     print("Removing " + targetCell + " value ...")
-                    worksheet.update_acell(targetCell, '')
+                    target_list.append(worksheet.acell(targetCell))
+        for cell in target_list:
+            cell.value = ''
+        if len(target_list) > 0:
+            worksheet.update_cells(target_list)
         print("Done.")
+
     except:
         print("\nAn error has occurred. Quota has been exhausted while removing group score.") 
         return 0
@@ -63,6 +69,9 @@ def identifyIncorrectItem(items):
             if item == '0'and index > 1 and index < (colDLength - 1) :
                 cellRange = "B" + str(index + 1) + ":" + "D" + str(index + 1)
                 format_cell_range(worksheet, cellRange, bgfmt)
+                format_
+        
+        format
         print("Done.")
     except:
         print("\nAn error has occurred. Quota has been exhausted while marking incorrect items.") 
@@ -90,7 +99,7 @@ def calculateScore(items):
 
 # Update excel scorecard
 # If execution does not finish, replace 'start' variable with the last success index.
-start = 45  
+start = 12  
 for index, item in enumerate(sheetCount):
     if index >= start:
         print("Working on : "+ str(index) + "  " + str(item))
@@ -104,8 +113,8 @@ for index, item in enumerate(sheetCount):
             columnDItems = worksheet.col_values(4)
 
             #removeItemGroupScore(columnAItems, columnDItems)
-            #identifyIncorrectItem(columnDItems)
-            calculateScore(columnDItems)
+            identifyIncorrectItem(columnDItems)
+            #calculateScore(columnDItems)
 
             #itemScoreStatus = removeItemGroupScore(columnAItems, columnDItems)
             #while itemScoreStatus == 0:
@@ -123,8 +132,9 @@ for index, item in enumerate(sheetCount):
             #while calculateScoreStatus == 0:
             #    print('Will retry after 5 mins (' + str(time.ctime()) + ') ...\n')
             #    time.sleep(300) #Sleep for 5 mins
-             #   calculateScoreStatus = calculateScore(columnDItems)
+            #   calculateScoreStatus = calculateScore(columnDItems)
 
+        
         print("----------------------------------------------------")
 
 print ("\n********All Done*********\n")
