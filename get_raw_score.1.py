@@ -13,47 +13,40 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name('is2800-1166f4019
 # Authorize
 gsheet = gspread.authorize(credentials)
 # Open workbook
-#workbook = gsheet.open('Excel_Chapter4_Scorecard_007')
-workbook = gsheet.open('test')
+workbook = gsheet.open('ExcelCase4_Chapter4_003')
+#workbook = gsheet.open('test')
 # Get worksheets
 worksheets = workbook.worksheets()   
 
 body = {"requests": []}
 
-def getScaledScore(sID, target):
+def getRawScore(sID, target):
     colDLength = len(target)
     target = colDLength + 1
-    #score = "=D" + str(target-1) + "/100*25"
-    score = "=D" + str(colDLength) + "/100*25"
+    #percentage = "=sum(D2:D" + str(target-1) + ")"
+    percentage = '=sum(D2:D' + str(colDLength) + ')'
     body['requests'].append(
         {"updateCells": {
-            'range': {
+            'start': {
                 "sheetId": sID,
-                "startRowIndex": target - 1 ,
-                "endRowIndex": target,
-                "startColumnIndex": 3,
-                "endColumnIndex": 4
+                "rowIndex": target - 1,
+                "columnIndex": 3
             },
             'rows': [{
                 "values": [{
                     "userEnteredValue": {
-                        "formulaValue": score
-                    },
-                    "userEnteredFormat": {
-                        "textFormat": {
-                            "bold": True
-                        }
+                        "formulaValue": percentage
                     }
                 }]
             }],
-            "fields": "*"
+            "fields": "*",
         }}
     )
     #return body
 
-##zeroValues = []
+#zeroValues = []
 #Loop through column D values and get the index for zero values
-start = 11  
+start = 0  
 for index, item in enumerate(worksheets):
     source = str(item)
     if index >= start:
@@ -61,7 +54,7 @@ for index, item in enumerate(worksheets):
         colDLength = len(columnDItems)
         sID = re.search('id:(.+?)>', source).group(1)
         colDTarget = colDLength + 1
-        getScaledScore(sID, columnDItems)
+        getRawScore(sID, columnDItems)
 
 print(body)
 workbook.batch_update(body=body)

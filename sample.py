@@ -185,3 +185,15 @@ for sheets in worksheets:
                                 }]
                             }],
                             "fields": "*"
+
+"formulaValue": percentage
+
+
+,
+                    "userEnteredFormat": {
+                        "borders": {
+                            "top": {
+                                "style": "SOLID_MEDIUM"
+                            }
+                        }
+                    }

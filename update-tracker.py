@@ -12,8 +12,8 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name('is2800-1166f4019
 # Authorize
 gsheet = gspread.authorize(credentials)
 # Open workbook
-workbook = gsheet.open('test')
-#workbook = gsheet.open('Test_Full_Excel_Chapter2_Scorecard_007')
+#workbook = gsheet.open('test')
+workbook = gsheet.open('Excel_Case4_Scorecard_006')
 # Get worksheets count
 #sheetCount = workbook.worksheets()   # Can fail starting here!//CHeck for optimization
 def getSheetCount(workbook):
@@ -99,7 +99,7 @@ def calculateScore(items):
 
 # Update excel scorecard
 # If execution does not finish, replace 'start' variable with the last success index.
-start = 12  
+start = 38  
 for index, item in enumerate(sheetCount):
     if index >= start:
         print("Working on : "+ str(index) + "  " + str(item))
@@ -113,8 +113,8 @@ for index, item in enumerate(sheetCount):
             columnDItems = worksheet.col_values(4)
 
             #removeItemGroupScore(columnAItems, columnDItems)
-            identifyIncorrectItem(columnDItems)
-            #calculateScore(columnDItems)
+            #identifyIncorrectItem(columnDItems)
+            calculateScore(columnDItems)
 
             #itemScoreStatus = removeItemGroupScore(columnAItems, columnDItems)
             #while itemScoreStatus == 0:

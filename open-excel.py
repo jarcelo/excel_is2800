@@ -1,7 +1,7 @@
 import os
 import zipfile
 
-directory = "C:\\Path\\test"
+directory = "C:\\Users\\Master Joe\\Desktop\\test"
 zipExtension = ".zip"
 xlsxExtension = ".xlsx"
 

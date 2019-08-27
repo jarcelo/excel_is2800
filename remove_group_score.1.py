@@ -5,6 +5,7 @@ import time
 from gspread_formatting import *
 from datetime import date
 from oauth2client.service_account import ServiceAccountCredentials
+from input_file import TargetWorkbook
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
@@ -13,7 +14,8 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name('is2800-1166f4019
 # Authorize
 gsheet = gspread.authorize(credentials)
 # Open workbook
-workbook = gsheet.open('test')
+workbook = gsheet.open(TargetWorkbook)
+#workbook = gsheet.open('test')
 # Get worksheets
 worksheets = workbook.worksheets()   
 
@@ -44,7 +46,7 @@ def addTargetCell(sID, columnAItems, columnDItems):
                             "fields": "*"
                         }}
                     )
-    return body
+    #return body
 
 #zeroValues = []
 #Loop through column D values and get the index for zero values

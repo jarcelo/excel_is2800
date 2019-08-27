@@ -2,8 +2,8 @@
 
 import os, shutil
 
-
-folder = "C:\\Path"
+#folder = "C:\\Users\\Master Joe\\Desktop\\Excel_Case_Submissions_006"
+folder = "C:\\Users\\Master Joe\\Desktop\\test"
 
 for the_file in os.listdir(folder):
     file_path = os.path.join(folder, the_file)

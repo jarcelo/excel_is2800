@@ -2,7 +2,7 @@
 
 import shutil
 
-directory = "C:\\Path\\folder"
+directory = "C:\\Users\\Master Joe\\Desktop\\case3"
 
 print("Deleting all files in " + directory)
 

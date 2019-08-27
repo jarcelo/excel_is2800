@@ -7,7 +7,7 @@ from datetime import date
 from oauth2client.service_account import ServiceAccountCredentials
 from remove_group_score import getGroupScoreRequestBody
 from get_raw_score import getRawScoreRequestBody
-from get_scaled_score import getScaledScoreRequestBody
+from get_scaled_score import getScaledScore
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
