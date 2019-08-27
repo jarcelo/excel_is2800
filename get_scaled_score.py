@@ -5,6 +5,7 @@ import time
 from gspread_formatting import *
 from datetime import date
 from oauth2client.service_account import ServiceAccountCredentials
+from input_file import TargetWorkbook
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
@@ -13,8 +14,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name('is2800-1166f4019
 # Authorize
 gsheet = gspread.authorize(credentials)
 # Open workbook
-#workbook = gsheet.open('Excel_Chapter4_Scorecard_007')
-workbook = gsheet.open('test')
+workbook = gsheet.open(TargetWorkbook)
 # Get worksheets
 worksheets = workbook.worksheets()   
 
@@ -23,16 +23,13 @@ body = {"requests": []}
 def getScaledScore(sID, target):
     colDLength = len(target)
     target = colDLength + 1
-    #score = "=D" + str(target-1) + "/100*25"
     score = "=D" + str(colDLength) + "/100*25"
     body['requests'].append(
         {"updateCells": {
-            'range': {
+            "start": {
                 "sheetId": sID,
-                "startRowIndex": target - 1 ,
-                "endRowIndex": target,
-                "startColumnIndex": 3,
-                "endColumnIndex": 4
+                "rowIndex": target - 1,
+                "columnIndex": 3
             },
             'rows': [{
                 "values": [{
@@ -49,11 +46,8 @@ def getScaledScore(sID, target):
             "fields": "*"
         }}
     )
-    #return body
 
-##zeroValues = []
-#Loop through column D values and get the index for zero values
-start = 11  
+start = 0  
 for index, item in enumerate(worksheets):
     source = str(item)
     if index >= start:
