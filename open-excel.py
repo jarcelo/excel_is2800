@@ -1,7 +1,8 @@
 import os
 import zipfile
+from input_file import TargetTempDirectory
 
-directory = "C:\\Users\\Master Joe\\Desktop\\test"
+directory = TargetTempDirectory
 zipExtension = ".zip"
 xlsxExtension = ".xlsx"
 
@@ -13,8 +14,6 @@ for item in os.listdir(directory):
                 fileName = os.path.abspath(item)
                 zipRef = zipfile.ZipFile(fileName)
                 zipRef.extractall(directory)
-
-# Delete zipped files after extraction?
 
 # Open the excel files
 for item in os.listdir(directory):

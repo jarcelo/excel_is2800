@@ -1,9 +1,9 @@
 # This util will delete the files recursively within the folder
 
 import os, shutil
+from input_file import TargetTempDirectory
 
-#folder = "C:\\Users\\Master Joe\\Desktop\\Excel_Case_Submissions_006"
-folder = "C:\\Users\\Master Joe\\Desktop\\test"
+folder = TargetTempDirectory
 
 for the_file in os.listdir(folder):
     file_path = os.path.join(folder, the_file)
