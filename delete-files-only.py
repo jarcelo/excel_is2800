@@ -1,9 +1,9 @@
 # This util will delete the files recursively within the folder
 
 import os, shutil
-from input_file import TargetTempDirectory
+from input_file import ExcelStagingDirectory
 
-folder = TargetTempDirectory
+folder = ExcelStagingDirectory
 
 for the_file in os.listdir(folder):
     file_path = os.path.join(folder, the_file)

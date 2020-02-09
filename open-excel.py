@@ -1,8 +1,8 @@
 import os
 import zipfile
-from input_file import TargetTempDirectory
+from input_file import ExcelStagingDirectory
 
-directory = TargetTempDirectory
+directory = ExcelStagingDirectory
 zipExtension = ".zip"
 xlsxExtension = ".xlsx"
 
